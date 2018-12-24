@@ -12,9 +12,18 @@ main, nav {
     margin-bottom: 0px;
 }
 
-.articleWrapper {
-    border: 1px solid black;
-    padding: 0px;
+.blueArticleWrapper {
+    border: 5px solid blue;
+    padding: 10px;
+    border-radius: 50px 0px 0px 50px;
+    margin-bottom: 10px;  
+}
+
+.redArticleWrapper {
+    border: 5px solid red;
+    padding: 10px;
+    border-radius: 0px 50px 50px 0px;
+    margin-bottom: 10px;
 }
 
 .navSection {
@@ -44,4 +53,20 @@ main, nav {
 
 .nationalSection, .worldSection, .healthSection, .politicSection, .businessSection, .entertainmentSection {
     display: none;
+    margin: 0px;
+    padding: 0px;
+}
+
+.blueArticleImage {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 40px 0px 0px 0px;
+}
+
+.redArticleImage {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 0px 40px 0px 0px;
 }

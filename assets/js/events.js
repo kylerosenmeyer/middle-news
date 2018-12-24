@@ -1,24 +1,40 @@
 //*Client Side Routes and Event Handling
 
 const 
-    classes = ["coverSection", "worldSection", "politicSection", "entertainmentSection", "businessSection", "healthSection", "nationalSection"],
+    newsPages = ["coverSection", "worldSection", "politicSection", "entertainmentSection", "businessSection", "healthSection", "nationalSection"],
     displayNews = (item, index, array) => {
 
-        console.log(`item ${item}`)
-        console.log(`index ${index}`)
-        console.log(`array ${array}`)
-        console.log(`section ${section}`)
-        console.log('\n============================')
+        for ( let i=0; i<newsPages.length; i++ ) {
+            
+            let pathname = "/" + newsPages[i]
+            if ( pathname === location.pathname ) {
 
-        let news = `.${item}`
-        if ( section === item ) { $(news).fadeIn(0) } 
-        else $(news).fadeOut(0)
+                let newsSection = `.${newsPages[i]}`
+                $(newsSection).fadeIn(0)
+                $(".coverSection").fadeOut(0)
+            }
+        }
     }
+
+displayNews()
 
 let section
 
+//!EVENTS
+
+$(".mainTitle").click( function() {
+    location.href = "/"
+})
+
 $(".navBtn").click( function() {
     section = $(this).attr("data-section")
-    console.log(`${section}\n `)
-    classes.forEach(displayNews.bind(section))
+    console.log(`Get ${section}\n `)
+
+    let url = `/${section}`
+    $.get(url).then((res, status) => {
+        console.log("request complete")
+        console.log(status)
+        console.log("----------------------")
+        location.href = url 
+    })
 })

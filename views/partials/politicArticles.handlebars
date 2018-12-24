@@ -1,11 +1,25 @@
 
 <div class="container-fluid politicSection">
     <div class="row">
-        <div class="col-sm-6">
-            <p>Political Article</p>
+        <div class="col-sm-6 leftPolitics">
+            <h2>Left Leaning</h2>
+                {{#each leftArticle}}
+                    <div class="blueArticleWrapper">
+                        <img src="{{image}}" class="blueArticleImage" data-href="{{link}}">
+                        <h5 class="articleTitle">{{title}}</h5>
+                        <p class="articleDescription">{{description}}</p>
+                    </div>
+                {{/each}}
         </div>
-        <div class="col-sm-6">
-            <p>Political Article</p>
+        <div class="col-sm-6 rightPolitics">
+            <h2>Right Leaning</h2>
+            {{#each rightArticle}}
+                <div class="redArticleWrapper">
+                    <img src="{{image}}" class="redArticleImage" data-href="{{link}}">
+                    <h5 class="articleTitle">{{title}}</h5>
+                    <p class="articleDescription">{{description}}</p>
+                </div>
+            {{/each}}
         </div>
     </div>
 </div>

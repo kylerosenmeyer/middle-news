@@ -13,16 +13,16 @@ app.use( express.json() )
 app.use( express.static( "assets" ) )
 
 //* Handlebars
-app.engine( "handlebars", handlebars({ 
+const hbs = handlebars.create({
     defaultLayout: "main",
-    layoutsDir: "./views/layouts",
-    partialsDir: "./views/partials"
-}))
-
+    partialsDir: ["./views/partials"]
+})
+app.engine( "handlebars", hbs.engine)
 app.set( "view engine", "handlebars" )
 
 //* Mongo DB
-mongoose.connect( "mongodb://localhost/middle-news", { useNewUrlParser: true } )
+mongoose.connect( "mongodb://localhost/middleNews", { useNewUrlParser: true } )
+
 
 //* Routes
 router(app)

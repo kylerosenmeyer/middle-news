@@ -5,7 +5,8 @@ const
     mongoose = require("mongoose"),
     PORT = 3000,
     app = express(),
-    router = require("./routing/router.js")
+    router = require("./routing/router.js"),
+    MONGODB_URI = process.env.MONGODB_URI || ("mongodb://localhost/middleNews")
 
 //*Middleware
 app.use( express.urlencoded( { extended: true } ) )
@@ -21,8 +22,7 @@ app.engine( "handlebars", hbs.engine)
 app.set( "view engine", "handlebars" )
 
 //* Mongo DB
-mongoose.connect( "mongodb://localhost/middleNews", { useNewUrlParser: true } )
-
+mongoose.connect(MONGODB_URI)
 
 //* Routes
 router(app)

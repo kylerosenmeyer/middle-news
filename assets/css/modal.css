@@ -1,0 +1,100 @@
+.modal-content {
+    border-radius: 50px 10px 50px 10px;
+}
+
+.modal-title {
+    margin-left: 33%;
+}
+
+.user-name {
+    border-top: 0px;
+    border-right: 0px;
+    border-left: 0px;
+    border-bottom: 5px solid #3773c1;
+    outline: 0px;
+    width: 95%;
+    padding: 2px;
+    margin-bottom: 20px;
+}
+
+.user-comment {
+    border: 5px solid #3773c1;
+    height: 100px;
+    outline: 0px;
+    width: 95%;
+    padding: 2px;
+    margin-bottom: 10px;
+}
+
+.modal-save {
+    color: black;
+    background-color: white;
+    border: 5px solid #3773c1;
+    transition: color 0.5s, background-color 0.5s;
+}
+
+.modal-save:hover, .modal-save:active {
+    outline: 0px;
+    color: white;
+    background-color: #3773c1;
+    border: 5px solid #3773c1;
+}
+
+.modal-close {
+    color: black;
+    background-color: white;
+    border: 5px solid #df3026;
+    border-radius: 5px 5px 35px 5px;
+    padding-right: 20px;
+    transition: color 0.5s, background-color 0.5s;
+}
+
+.modal-close:hover, .modal-close:active {
+    outline: 0px;
+    color: white;
+    background-color: #df3026;
+    border: 5px solid #df3026;
+}
+
+.commentsSection {
+    padding: 5px;
+    margin: 0px;
+    overflow: scroll;
+    height: 200px;
+}
+
+.commentsHeader {
+    border-bottom: 5px solid #3773c1;
+}
+
+.center {
+    text-align: center;
+}
+
+.commentRow {
+    margin-bottom: 10px;
+    border-bottom: 1px dashed rgba(110, 110, 110, 0.3);
+}
+
+.comment {
+    padding: 5px 10px 5px 0px
+}
+
+.deleteComment {
+    background-color: transparent;
+    color: #df3026;
+    padding: 5px 10px;
+    border: 3px solid transparent;
+    border-radius: 10px;
+    transition: border 0.5s;
+}
+
+.deleteComment:hover, .deleteComment:active {
+    outline: none;
+    border: 3px solid #df3026;
+    border-radius: 10px;
+}
+
+.articleComments {
+    margin-top: 15px;
+}

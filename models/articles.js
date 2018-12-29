@@ -24,7 +24,11 @@ let bluePoliticalSchema = new Schema({
   },
   date: {
     type: Date,
-    default: Date.now
+    required: true
+  },
+  scrapeOrder: {
+    type: Number,
+    required: true
   },
   notes: [
     {
@@ -56,7 +60,11 @@ let redPoliticalSchema = new Schema({
   },
   date: {
     type: Date,
-    default: Date.now
+    required: true
+  },
+  scrapeOrder: {
+    type: Number,
+    required: true
   },
   notes: [
     {
@@ -87,7 +95,11 @@ let blueNationalSchema = new Schema({
   },
   date: {
     type: Date,
-    default: Date.now
+    required: true
+  },
+  scrapeOrder: {
+    type: Number,
+    required: true
   },
   notes: [
     {
@@ -118,7 +130,11 @@ let redNationalSchema = new Schema({
   },
   date: {
     type: Date,
-    default: Date.now
+    required: true
+  },
+  scrapeOrder: {
+    type: Number,
+    required: true
   },
   notes: [
     {
@@ -149,7 +165,11 @@ let blueWorldSchema = new Schema({
   },
   date: {
     type: Date,
-    default: Date.now
+    required: true
+  },
+  scrapeOrder: {
+    type: Number,
+    required: true
   },
   notes: [
     {
@@ -180,7 +200,11 @@ let redWorldSchema = new Schema({
   },
   date: {
     type: Date,
-    default: Date.now
+    required: true
+  },
+  scrapeOrder: {
+    type: Number,
+    required: true
   },
   notes: [
     {
@@ -211,7 +235,11 @@ let blueBusinessSchema = new Schema({
   },
   date: {
     type: Date,
-    default: Date.now
+    required: true
+  },
+  scrapeOrder: {
+    type: Number,
+    required: true
   },
   notes: [
     {
@@ -242,7 +270,11 @@ let redBusinessSchema = new Schema({
   },
   date: {
     type: Date,
-    default: Date.now
+    required: true
+  },
+  scrapeOrder: {
+    type: Number,
+    required: true
   },
   notes: [
     {
@@ -273,7 +305,11 @@ let blueEntertainmentSchema = new Schema({
   },
   date: {
     type: Date,
-    default: Date.now
+    required: true
+  },
+  scrapeOrder: {
+    type: Number,
+    required: true
   },
   notes: [
     {
@@ -304,7 +340,11 @@ let redEntertainmentSchema = new Schema({
   },
   date: {
     type: Date,
-    default: Date.now
+    required: true
+  },
+  scrapeOrder: {
+    type: Number,
+    required: true
   },
   notes: [
     {
@@ -335,7 +375,11 @@ let blueHealthSchema = new Schema({
   },
   date: {
     type: Date,
-    default: Date.now
+    required: true
+  },
+  scrapeOrder: {
+    type: Number,
+    required: true
   },
   notes: [
     {
@@ -366,7 +410,11 @@ let redHealthSchema = new Schema({
   },
   date: {
     type: Date,
-    default: Date.now
+    required: true
+  },
+  scrapeOrder: {
+    type: Number,
+    required: true
   },
   notes: [
     {

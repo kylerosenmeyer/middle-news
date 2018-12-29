@@ -150,5 +150,22 @@ module.exports = function(app) {
                 .catch( err => console.log(err) )
         }
     })
+
+    //!Note Delete
+    app.delete("/delete-comment/:id", (req, res) => {
+
+        let noteId = req.params.id,
+            request = req.body._id
+
+        note.articlenote
+            .deleteOne({"_id":request})
+            .then( note => {
+                console.log("Note Deleted:")
+                console.log(note)
+                console.log("--*--*--*--*--*--*--*--")
+                res.end()})
+            .catch( err => console.log(err) )
+            
+    })
 }
 

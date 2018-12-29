@@ -5,6 +5,7 @@ const
     cheerio = require("cheerio"),
     article = require("../models/articles.js"),
     note = require("../models/notes.js"),
+    moment = require("moment")
 
 
 
@@ -29,10 +30,12 @@ const
                     blueResult.title = $(this).children(".item-info").children(".title").children("a").text().trim()
                     blueResult.link = $(this).children(".item-info").children(".title").children("a").attr("href")
                     blueResult.description = $(this).children(".item-info").children(".teaser").children("a").text().trim()
+                    blueResult.date = moment().format("YYYY-MM-DD")
                     console.log(blueResult.title)
                     console.log(blueResult.image)
                     console.log(blueResult.link)
                     console.log(blueResult.description)
+                    console.log(blueResult.date)
                     console.log("----------------------------------")
                     scrapeResults.push(blueResult)
                     blueResult = {}
@@ -44,8 +47,10 @@ const
                 article.bluepoliticalarticles.findOne({link: scrapeResults[i].link})
                        .then( function(response) {
                             let articleCheck = response
+                            // console.log(`articleCheck: ${articleCheck}`)
                             if (!articleCheck) {
 
+                                scrapeResults[i].scrapeOrder = i+1
                                 article.bluepoliticalarticles.create(scrapeResults[i])
                                 .then( article => {
                                     console.log("Database Double Check")
@@ -55,9 +60,11 @@ const
                             }
                        })
             }
+
+            let startDate = moment().subtract(2, "days").format("YYYY-MM-DD")
             article.bluepoliticalarticles
-                   .find({})
-                   .sort({"date": 1})
+                   .find({date: {$gte: startDate}})
+                   .sort({scrapeOrder: 1})
                    .limit(20)
                    .then(function(leftArticles) {
                 
@@ -76,12 +83,19 @@ const
 
                             redResult.image = $(this).children(".m").children("a").children("picture").children("img").attr("src")
                             redResult.title = $(this).children(".info").children(".info-header").children(".title").children("a").text().trim()
-                            redResult.link = $(this).children(".info").children(".info-header").children(".title").children("a").attr("href")
+
+                            let initialLink = $(this).children(".info").children(".info-header").children(".title").children("a").attr("href")
+                            if ( (initialLink) && ( initialLink.includes(":") ) ) {
+                                redResult.link = $(this).children(".info").children(".info-header").children(".title").children("a").attr("href")
+                            } else redResult.link = "https://www.foxnews.com" + $(this).children(".info").children(".info-header").children(".title").children("a").attr("href")
+
                             redResult.description = $(this).children(".info").children(".content").children(".dek").children("a").text().trim()
+                            redResult.date = moment().format("YYYY-MM-DD")
                             console.log(redResult.title)
                             console.log(redResult.image)
                             console.log(redResult.link)
                             console.log(redResult.description)
+                            console.log(redResult.date)
                             console.log("----------------------------------")
 
                             if ( (redResult.image) && (redResult.title) && (redResult.link) && (redResult.description) ) {
@@ -94,12 +108,19 @@ const
 
                             redResult.image = $(this).children(".m").children("a").children("img").attr("src")
                             redResult.title = $(this).children(".info").children(".info-header").children(".title").children("a").text().trim()
-                            redResult.link = $(this).children(".info").children(".info-header").children(".title").children("a").attr("href")
+
+                            let initialLink = $(this).children(".info").children(".info-header").children(".title").children("a").attr("href")
+                            if ( (initialLink) && ( initialLink.includes(":") ) ) {
+                                redResult.link = $(this).children(".info").children(".info-header").children(".title").children("a").attr("href")
+                            } else redResult.link = "https://www.foxnews.com" + $(this).children(".info").children(".info-header").children(".title").children("a").attr("href")
+
                             redResult.description = $(this).children(".info").children(".content").children(".dek").children("a").text().trim()
+                            redResult.date = moment().format("YYYY-MM-DD")
                             console.log(redResult.title)
                             console.log(redResult.image)
                             console.log(redResult.link)
                             console.log(redResult.description)
+                            console.log(redResult.date)
                             console.log("----------------------------------")
 
                             if ( (redResult.image) && (redResult.title) && (redResult.link) && (redResult.description) ) {
@@ -116,6 +137,7 @@ const
                                     let articleCheck = response
                                     if (!articleCheck) {
 
+                                        scrapeResults[i].scrapeOrder = i+1
                                         article.redpoliticalarticles.create(scrapeResults[i])
                                         .then( article => {
                                             console.log("Database Double Check")
@@ -126,9 +148,10 @@ const
                             })
                     }
 
+                    let startDate = moment().subtract(2, "days").format("YYYY-MM-DD")
                     article.redpoliticalarticles
-                           .find({})
-                           .sort({"date":1})
+                           .find({date: {$gte: startDate}})
+                           .sort({scrapeOrder:1})
                            .limit(20)
                            .then(function(rightArticles) {
 
@@ -170,10 +193,12 @@ const
                     blueResult.title = $(this).children(".item-info").children(".title").children("a").text().trim()
                     blueResult.link = $(this).children(".item-info").children(".title").children("a").attr("href")
                     blueResult.description = $(this).children(".item-info").children(".teaser").children("a").text().trim()
+                    blueResult.date = moment().format("YYYY-MM-DD")
                     console.log(blueResult.title)
                     console.log(blueResult.image)
                     console.log(blueResult.link)
                     console.log(blueResult.description)
+                    console.log(blueResult.date)
                     console.log("----------------------------------")
                     scrapeResults.push(blueResult)
                     blueResult = {}
@@ -187,6 +212,7 @@ const
                             let articleCheck = response
                             if (!articleCheck) {
 
+                                scrapeResults[i].scrapeOrder = i+1
                                 article.bluenationalarticles.create(scrapeResults[i])
                                 .then( article => {
                                     console.log("Database Double Check")
@@ -196,9 +222,11 @@ const
                             }
                        })
             }
+
+            let startDate = moment().subtract(2, "days").format("YYYY-MM-DD")
             article.bluenationalarticles
-                   .find({})
-                   .sort({"date": 1})
+                   .find({date: {$gte: startDate}})
+                   .sort({scrapeOrder: 1})
                    .limit(20)
                    .then(function(leftArticles) {
                 
@@ -217,12 +245,19 @@ const
 
                             redResult.image = $(this).children(".m").children("a").children("picture").children("img").attr("src")
                             redResult.title = $(this).children(".info").children(".info-header").children(".title").children("a").text().trim()
-                            redResult.link = $(this).children(".info").children(".info-header").children(".title").children("a").attr("href")
+
+                            let initialLink = $(this).children(".info").children(".info-header").children(".title").children("a").attr("href")
+                            if ( (initialLink) && ( initialLink.includes(":") ) ) {
+                                redResult.link = $(this).children(".info").children(".info-header").children(".title").children("a").attr("href")
+                            } else redResult.link = "https://www.foxnews.com" + $(this).children(".info").children(".info-header").children(".title").children("a").attr("href")
+
                             redResult.description = $(this).children(".info").children(".content").children(".dek").children("a").text().trim()
+                            redResult.date = moment().format("YYYY-MM-DD")
                             console.log(redResult.title)
                             console.log(redResult.image)
                             console.log(redResult.link)
                             console.log(redResult.description)
+                            console.log(redResult.date)
                             console.log("----------------------------------")
 
                             if ( (redResult.image) && (redResult.title) && (redResult.link) && (redResult.description) ) {
@@ -235,12 +270,19 @@ const
 
                             redResult.image = $(this).children(".m").children("a").children("img").attr("src")
                             redResult.title = $(this).children(".info").children(".info-header").children(".title").children("a").text().trim()
-                            redResult.link = $(this).children(".info").children(".info-header").children(".title").children("a").attr("href")
+
+                            let initialLink = $(this).children(".info").children(".info-header").children(".title").children("a").attr("href")
+                            if ( (initialLink) && ( initialLink.includes(":") ) ) {
+                                redResult.link = $(this).children(".info").children(".info-header").children(".title").children("a").attr("href")
+                            } else redResult.link = "https://www.foxnews.com" + $(this).children(".info").children(".info-header").children(".title").children("a").attr("href")
+
                             redResult.description = $(this).children(".info").children(".content").children(".dek").children("a").text().trim()
+                            redResult.date = moment().format("YYYY-MM-DD")
                             console.log(redResult.title)
                             console.log(redResult.image)
                             console.log(redResult.link)
                             console.log(redResult.description)
+                            console.log(redResult.date)
                             console.log("----------------------------------")
 
                             if ( (redResult.image) && (redResult.title) && (redResult.link) && (redResult.description) ) {
@@ -257,6 +299,7 @@ const
                                     let articleCheck = response
                                     if (!articleCheck) {
 
+                                        scrapeResults[i].scrapeOrder = i+1
                                         article.rednationalarticles.create(scrapeResults[i])
                                         .then( article => {
                                             console.log("Database Double Check")
@@ -267,9 +310,10 @@ const
                             })
                     }
 
+                    let startDate = moment().subtract(2, "days").format("YYYY-MM-DD")
                     article.rednationalarticles
-                           .find({})
-                           .sort({"date":1})
+                           .find({date: {$gte: startDate}})
+                           .sort({scrapeOrder:1})
                            .limit(20)
                            .then(function(rightArticles) {
 
@@ -311,10 +355,12 @@ const
                     blueResult.title = $(this).children(".item-info").children(".title").children("a").text().trim()
                     blueResult.link = $(this).children(".item-info").children(".title").children("a").attr("href")
                     blueResult.description = $(this).children(".item-info").children(".teaser").children("a").text().trim()
+                    blueResult.date = moment().format("YYYY-MM-DD")
                     console.log(blueResult.title)
                     console.log(blueResult.image)
                     console.log(blueResult.link)
                     console.log(blueResult.description)
+                    console.log(blueResult.date)
                     console.log("----------------------------------")
                     scrapeResults.push(blueResult)
                     blueResult = {}
@@ -328,6 +374,7 @@ const
                             let articleCheck = response
                             if (!articleCheck) {
 
+                                scrapeResults[i].scrapeOrder = i+1
                                 article.blueworldarticles.create(scrapeResults[i])
                                 .then( article => {
                                     console.log("Database Double Check")
@@ -337,9 +384,11 @@ const
                             }
                        })
             }
+
+            let startDate = moment().subtract(2, "days").format("YYYY-MM-DD")
             article.blueworldarticles
-                   .find({})
-                   .sort({"date": 1})
+                   .find({date: {$gte: startDate}})
+                   .sort({scrapeOrder: 1})
                    .limit(20)
                    .then(function(leftArticles) {
                 
@@ -358,12 +407,19 @@ const
 
                             redResult.image = $(this).children(".m").children("a").children("picture").children("img").attr("src")
                             redResult.title = $(this).children(".info").children(".info-header").children(".title").children("a").text().trim()
-                            redResult.link = $(this).children(".info").children(".info-header").children(".title").children("a").attr("href")
+
+                            let initialLink = $(this).children(".info").children(".info-header").children(".title").children("a").attr("href")
+                            if ( (initialLink) && ( initialLink.includes(":") ) ) {
+                                redResult.link = $(this).children(".info").children(".info-header").children(".title").children("a").attr("href")
+                            } else redResult.link = "https://www.foxnews.com" + $(this).children(".info").children(".info-header").children(".title").children("a").attr("href")
+
                             redResult.description = $(this).children(".info").children(".content").children(".dek").children("a").text().trim()
+                            redResult.date = moment().format("YYYY-MM-DD")
                             console.log(redResult.title)
                             console.log(redResult.image)
                             console.log(redResult.link)
                             console.log(redResult.description)
+                            console.log(redResult.date)
                             console.log("----------------------------------")
 
                             if ( (redResult.image) && (redResult.title) && (redResult.link) && (redResult.description) ) {
@@ -376,12 +432,19 @@ const
 
                             redResult.image = $(this).children(".m").children("a").children("img").attr("src")
                             redResult.title = $(this).children(".info").children(".info-header").children(".title").children("a").text().trim()
-                            redResult.link = $(this).children(".info").children(".info-header").children(".title").children("a").attr("href")
+
+                            let initialLink = $(this).children(".info").children(".info-header").children(".title").children("a").attr("href")
+                            if ( (initialLink) && ( initialLink.includes(":") ) ) {
+                                redResult.link = $(this).children(".info").children(".info-header").children(".title").children("a").attr("href")
+                            } else redResult.link = "https://www.foxnews.com" + $(this).children(".info").children(".info-header").children(".title").children("a").attr("href")
+
                             redResult.description = $(this).children(".info").children(".content").children(".dek").children("a").text().trim()
+                            redResult.date = moment().format("YYYY-MM-DD")
                             console.log(redResult.title)
                             console.log(redResult.image)
                             console.log(redResult.link)
                             console.log(redResult.description)
+                            console.log(redResult.date)
                             console.log("----------------------------------")
 
                             if ( (redResult.image) && (redResult.title) && (redResult.link) && (redResult.description) ) {
@@ -398,6 +461,7 @@ const
                                     let articleCheck = response
                                     if (!articleCheck) {
 
+                                        scrapeResults[i].scrapeOrder = i+1
                                         article.redworldarticles.create(scrapeResults[i])
                                         .then( article => {
                                             console.log("Database Double Check")
@@ -408,9 +472,10 @@ const
                             })
                     }
 
+                    let startDate = moment().subtract(2, "days").format("YYYY-MM-DD")
                     article.redworldarticles
-                           .find({})
-                           .sort({"date":1})
+                           .find({date: {$gte: startDate}})
+                           .sort({scrapeOrder:1})
                            .limit(20)
                            .then(function(rightArticles) {
 
@@ -450,10 +515,12 @@ const
                     blueResult.title = $(this).children(".item-info").children(".title").children("a").text().trim()
                     blueResult.link = $(this).children(".item-info").children(".title").children("a").attr("href")
                     blueResult.description = $(this).children(".item-info").children(".teaser").children("a").text().trim()
+                    blueResult.date = moment().format("YYYY-MM-DD")
                     console.log(blueResult.title)
                     console.log(blueResult.image)
                     console.log(blueResult.link)
                     console.log(blueResult.description)
+                    console.log(blueResult.date)
                     console.log("----------------------------------")
                     scrapeResults.push(blueResult)
                     blueResult = {}
@@ -467,6 +534,7 @@ const
                             let articleCheck = response
                             if (!articleCheck) {
 
+                                scrapeResults[i].scrapeOrder = i+1
                                 article.bluebusinessarticles.create(scrapeResults[i])
                                 .then( article => {
                                     console.log("Database Double Check")
@@ -476,9 +544,11 @@ const
                             }
                        })
             }
+
+            let startDate = moment().subtract(2, "days").format("YYYY-MM-DD")
             article.bluebusinessarticles
-                   .find({})
-                   .sort({"date": 1})
+                   .find({date: {$gte: startDate}})
+                   .sort({scrapeOrder: 1})
                    .limit(20)
                    .then(function(leftArticles) {
                 
@@ -497,10 +567,17 @@ const
 
                             redResult.image = $(this).children(".m").children("a").children("img").attr("src")
                             redResult.title = $(this).children(".info").children("h3").children("a").text().trim()
-                            redResult.link = $(this).children(".m").children("a").attr("href")
+
+                            let initialLink = $(this).children(".info").children(".info-header").children(".title").children("a").attr("href")
+                            if ( (initialLink) && ( initialLink.includes(":") ) ) {
+                                redResult.link = $(this).children(".info").children(".info-header").children(".title").children("a").attr("href")
+                            } else redResult.link = "https://www.foxbusiness.com" + $(this).children(".info").children(".info-header").children(".title").children("a").attr("href")
+
+                            redResult.date = moment().format("YYYY-MM-DD")
                             console.log(redResult.title)
                             console.log(redResult.image)
                             console.log(redResult.link)
+                            console.log(redResult.date)
                             console.log("----------------------------------")
 
                             if ( (redResult.image) && (redResult.title) && (redResult.link) ) {
@@ -517,6 +594,7 @@ const
                                     let articleCheck = response
                                     if (!articleCheck) {
 
+                                        scrapeResults[i].scrapeOrder = i+1
                                         article.redbusinessarticles.create(scrapeResults[i])
                                         .then( article => {
                                             console.log("Database Double Check")
@@ -527,9 +605,10 @@ const
                             })
                     }
 
+                    let startDate = moment().subtract(2, "days").format("YYYY-MM-DD")
                     article.redbusinessarticles
-                           .find({})
-                           .sort({"date":1})
+                           .find({ date: {$gte: startDate}})
+                           .sort({scrapeOrder:1})
                            .limit(20)
                            .then(function(rightArticles) {
 
@@ -569,10 +648,12 @@ const
                     blueResult.title = $(this).children(".item-info").children(".title").children("a").text().trim()
                     blueResult.link = $(this).children(".item-info").children(".title").children("a").attr("href")
                     blueResult.description = $(this).children(".item-info").children(".teaser").children("a").text().trim()
+                    blueResult.date = moment().format("YYYY-MM-DD")
                     console.log(blueResult.title)
                     console.log(blueResult.image)
                     console.log(blueResult.link)
                     console.log(blueResult.description)
+                    console.log(blueResult.date)
                     console.log("----------------------------------")
                     scrapeResults.push(blueResult)
                     blueResult = {}
@@ -586,6 +667,7 @@ const
                             let articleCheck = response
                             if (!articleCheck) {
 
+                                scrapeResults[i].scrapeOrder = i+1
                                 article.blueentertainmentarticles.create(scrapeResults[i])
                                 .then( article => {
                                     console.log("Database Double Check")
@@ -595,9 +677,11 @@ const
                             }
                        })
             }
+
+            let startDate = moment().subtract(2, "days").format("YYYY-MM-DD")
             article.blueentertainmentarticles
-                   .find({})
-                   .sort({"date": 1})
+                   .find({date: {$gte: startDate}})
+                   .sort({scrapeOrder: 1})
                    .limit(20)
                    .then(function(leftArticles) {
                 
@@ -616,10 +700,17 @@ const
 
                             redResult.image = $(this).children(".m").children("a").children("picture").children("img").attr("src")
                             redResult.title = $(this).children(".info").children(".info-header").children(".title").children("a").text().trim()
-                            redResult.link = $(this).children(".info").children(".info-header").children(".title").children("a").attr("href")
+
+                            let initialLink = $(this).children(".info").children(".info-header").children(".title").children("a").attr("href")
+                            if ( (initialLink) && ( initialLink.includes(":") ) ) {
+                                redResult.link = $(this).children(".info").children(".info-header").children(".title").children("a").attr("href")
+                            } else redResult.link = "https://www.foxnews.com" + $(this).children(".info").children(".info-header").children(".title").children("a").attr("href")
+
+                            redResult.date = moment().format("YYYY-MM-DD")
                             console.log(redResult.title)
                             console.log(redResult.image)
                             console.log(redResult.link)
+                            console.log(redResult.date)
                             console.log("----------------------------------")
 
                             if ( (redResult.image) && (redResult.title) && (redResult.link) ) {
@@ -632,10 +723,17 @@ const
 
                             redResult.image = $(this).children(".m").children("a").children("img").attr("src")
                             redResult.title = $(this).children(".info").children(".info-header").children(".title").children("a").text().trim()
-                            redResult.link = $(this).children(".info").children(".info-header").children(".title").children("a").attr("href")
+
+                            let initialLink = $(this).children(".info").children(".info-header").children(".title").children("a").attr("href")
+                            if ( (initialLink) && ( initialLink.includes(":") ) ) {
+                                redResult.link = $(this).children(".info").children(".info-header").children(".title").children("a").attr("href")
+                            } else redResult.link = "https://www.foxnews.com" + $(this).children(".info").children(".info-header").children(".title").children("a").attr("href")
+
+                            redResult.date = moment().format("YYYY-MM-DD")
                             console.log(redResult.title)
                             console.log(redResult.image)
                             console.log(redResult.link)
+                            console.log(redResult.date)
                             console.log("----------------------------------")
 
                             if ( (redResult.image) && (redResult.title) && (redResult.link) ) {
@@ -652,6 +750,7 @@ const
                                     let articleCheck = response
                                     if (!articleCheck) {
 
+                                        scrapeResults[i].scrapeOrder = i+1
                                         article.redentertainmentarticles.create(scrapeResults[i])
                                         .then( article => {
                                             console.log("Database Double Check")
@@ -662,9 +761,10 @@ const
                             })
                     }
 
+                    let startDate = moment().subtract(2, "days").format("YYYY-MM-DD")
                     article.redentertainmentarticles
-                           .find({})
-                           .sort({"date":1})
+                           .find({date: {$gte: startDate}})
+                           .sort({scrapeOrder:1})
                            .limit(20)
                            .then(function(rightArticles) {
 
@@ -704,10 +804,12 @@ const
                     blueResult.title = $(this).children(".item-info").children(".title").children("a").text().trim()
                     blueResult.link = $(this).children(".item-info").children(".title").children("a").attr("href")
                     blueResult.description = $(this).children(".item-info").children(".teaser").children("a").text().trim()
+                    blueResult.date = moment().format("YYYY-MM-DD")
                     console.log(blueResult.title)
                     console.log(blueResult.image)
                     console.log(blueResult.link)
                     console.log(blueResult.description)
+                    console.log(blueResult.date)
                     console.log("----------------------------------")
                     scrapeResults.push(blueResult)
                     blueResult = {}
@@ -721,6 +823,7 @@ const
                             let articleCheck = response
                             if (!articleCheck) {
 
+                                scrapeResults[i].scrapeOrder = i+1
                                 article.bluehealtharticles.create(scrapeResults[i])
                                 .then( article => {
                                     console.log("Database Double Check")
@@ -730,9 +833,11 @@ const
                             }
                        })
             }
+
+            let startDate = moment().subtract(2, "days").format("YYYY-MM-DD")
             article.bluehealtharticles
-                   .find({})
-                   .sort({"date": 1})
+                   .find({date: {$gte: startDate}})
+                   .sort({scrapeOrder: 1})
                    .limit(20)
                    .then(function(leftArticles) {
                 
@@ -751,12 +856,19 @@ const
 
                             redResult.image = $(this).children(".m").children("a").children("picture").children("img").attr("src")
                             redResult.title = $(this).children(".info").children(".info-header").children(".title").children("a").text().trim()
-                            redResult.link = $(this).children(".info").children(".info-header").children(".title").children("a").attr("href")
+
+                            let initialLink = $(this).children(".info").children(".info-header").children(".title").children("a").attr("href")
+                            if ( (initialLink) && ( initialLink.includes(":") ) ) {
+                                redResult.link = $(this).children(".info").children(".info-header").children(".title").children("a").attr("href")
+                            } else redResult.link = "https://www.foxnews.com" + $(this).children(".info").children(".info-header").children(".title").children("a").attr("href")
+
                             redResult.description = $(this).children(".info").children(".content").children(".dek").children("a").text().trim()
+                            redResult.date = moment().format("YYYY-MM-DD")
                             console.log(redResult.title)
                             console.log(redResult.image)
                             console.log(redResult.link)
                             console.log(redResult.description)
+                            console.log(redResult.date)
                             console.log("----------------------------------")
 
                             if ( (redResult.image) && (redResult.title) && (redResult.link) && (redResult.description) ) {
@@ -769,12 +881,19 @@ const
 
                             redResult.image = $(this).children(".m").children("a").children("img").attr("src")
                             redResult.title = $(this).children(".info").children(".info-header").children(".title").children("a").text().trim()
-                            redResult.link = $(this).children(".info").children(".info-header").children(".title").children("a").attr("href")
+
+                            let initialLink = $(this).children(".info").children(".info-header").children(".title").children("a").attr("href")
+                            if ( (initialLink) && ( initialLink.includes(":") ) ) {
+                                redResult.link = $(this).children(".info").children(".info-header").children(".title").children("a").attr("href")
+                            } else redResult.link = "https://www.foxnews.com" + $(this).children(".info").children(".info-header").children(".title").children("a").attr("href")
+
                             redResult.description = $(this).children(".info").children(".content").children(".dek").children("a").text().trim()
+                            redResult.date = moment().format("YYYY-MM-DD")
                             console.log(redResult.title)
                             console.log(redResult.image)
                             console.log(redResult.link)
                             console.log(redResult.description)
+                            console.log(redResult.date)
                             console.log("----------------------------------")
 
                             if ( (redResult.image) && (redResult.title) && (redResult.link) && (redResult.description) ) {
@@ -791,6 +910,7 @@ const
                                     let articleCheck = response
                                     if (!articleCheck) {
 
+                                        scrapeResults[i].scrapeOrder = i+1
                                         article.redhealtharticles.create(scrapeResults[i])
                                         .then( article => {
                                             console.log("Database Double Check")
@@ -801,9 +921,10 @@ const
                             })
                     }
 
+                    let startDate = moment().subtract(2, "days").format("YYYY-MM-DD")
                     article.redhealtharticles
-                           .find({})
-                           .sort({"date":1})
+                           .find({date: {$gte: startDate}})
+                           .sort({scrapeOrder:1})
                            .limit(20)
                            .then(function(rightArticles) {
 

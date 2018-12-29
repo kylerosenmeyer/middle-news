@@ -49,7 +49,83 @@ $(".articleAction").click( function() {
     window.open(url, '_blank')
 })
 
+let displayComments = function(response) {
+
+    $(".articleComments").html("")
+
+    for ( let i=0; i<response.length; i++ ) {
+
+        let div = $("<div>"),
+            leftCol = $("<div>"),
+            middleCol = $("<div>"),
+            rightCol = $("<div>"),
+            nameTag = $("<p>"),
+            commentTag = $("<p>"),
+            deleteBtn = $("<button>"),
+            name = response[i].name,
+            comment = response[i].comment
+        
+           nameTag.html(name)
+                  .addClass("comment")
+        commentTag.html(comment)
+                  .addClass("comment")
+         deleteBtn.addClass("deleteComment")
+                  .attr("data-id", response[i]._id)
+         deleteBtn.html("<i class=\"fas fa-trash-alt\"></i>")
+           leftCol.addClass("col-3")
+                  .append(nameTag)
+         middleCol.addClass("col-7")
+                  .append(commentTag)
+          rightCol.addClass("col-2")
+                  .append(deleteBtn)
+               div.addClass("row commentRow")
+                  .append(leftCol, middleCol, rightCol)
+
+        $(".articleComments").prepend(div)
+    }
+    },
+    commentLogic = function() {
+        let trashCan = document.getElementsByClassName("deleteComment")
+
+        for ( let i=0; i<trashCan.length; i++ ) {
+
+            trashCan[i].addEventListener("click", function() {
+
+                let commentID = { "_id": $(this).attr("data-id") },
+                url = `/delete-comment/${$(this).attr("data-id")}`
+    
+                $.ajax({
+                    url: url,
+                    method: "DELETE",
+                    data: commentID
+                }).then(() => {
+                    console.log("comment deleted")
+                    console.log("go refresh comments")
+                    console.log("----------------------")
+                    let refreshURL = "/note/" + $(".modal-save").attr("data-id")
+                    $.get(refreshURL).then((response) => {
+                        console.log("comment request complete")
+                        console.log(response)
+                        console.log("----------------------")
+                        
+                        if ( response === "Be the first to comment.") {
+                            $(".articleComments").html(response)
+                        } else {
+                            displayComments(response)   
+                            commentLogic()
+                        }
+                    })
+                })
+            })
+        }
+        
+    }
+
+
+
 $(".articleComment").click( function() {
+
+    $(".articleComments").html("")
 
     let id = $(this).attr("data-id"),
         url = `/note/${id}`
@@ -58,30 +134,14 @@ $(".articleComment").click( function() {
         console.log(response)
         console.log("----------------------")
 
-        for ( let i=0; i<response.length; i++ ) {
-
-            let div = $("<div>"),
-                smallCol = $("<div>"),
-                largeCol = $("<div>"),
-                nameTag = $("<p>"),
-                commentTag = $("<p>"),
-                name = response[i].name,
-                comment = response[i].comment
-            
-               nameTag.html(name)
-            commentTag.html(comment)
-              smallCol.addClass("col-3")
-                      .append(nameTag)
-              largeCol.addClass("col-9")
-                      .append(commentTag)
-                   div.addClass("row commentRow")
-                      .append(smallCol, largeCol)
-
-            $(".articleComments").prepend(div)
+        if ( response === "Be the first to comment.") {
+            $(".articleComments").html(response)
+        } else {
+            displayComments(response)   
+            commentLogic()
         }
-
-
         
+    
         $(".modal-save").attr("data-id", id)
         $("#commentModal").modal("toggle")
     })
@@ -94,52 +154,51 @@ $(".modal-save").click( function() {
         url = `/note/${id}`,
         name = $(".user-name").val().trim(),
         comment = $(".user-comment").val().trim()
+
+    if ( ( name === "" ) || ( comment === "" ) ) {
+
+        TweenMax.to(".modal-content", 0.08, {
+            x: "+=10",
+            yoyo: true,
+            repeat: 5
+        })
+    } else {
+
+        let request = {
+            article_id: id,
+            name: name,
+            comment: comment
+        }
     
-    let request = {
-        article_id: id,
-        name: name,
-        comment: comment
-    }
-
-    $(".user-name").val("")
-    $(".user-comment").val("")
-
-    $.post(url, request).then((response) => {
-
-        console.log("comment post complete")
-        console.log(response)
-        console.log("----------------------")
-
-        $(".articleComments").html("")
-
-        $.get(url).then((response) => {
-
-            console.log("comment return complete")
+        $(".user-name").val("")
+        $(".user-comment").val("")
+    
+        $.post(url, request).then((response) => {
+    
+            console.log("comment post complete")
             console.log(response)
             console.log("----------------------")
-
-            for ( let i=0; i<response.length; i++ ) {
-
-                let div = $("<div>"),
-                    smallCol = $("<div>"),
-                    largeCol = $("<div>"),
-                    nameTag = $("<p>"),
-                    commentTag = $("<p>"),
-                    name = response[i].name,
-                    comment = response[i].comment
-                
-                   nameTag.html(name)
-                commentTag.html(comment)
-                  smallCol.addClass("col-3")
-                          .append(nameTag)
-                  largeCol.addClass("col-9")
-                          .append(commentTag)
-                       div.addClass("row")
-                          .append(smallCol, largeCol)
     
-                $(".articleComments").prepend(div)
-            }
+            $(".articleComments").html("")
+    
+            $.get(url).then((response) => {
+    
+                console.log("comment return complete")
+                console.log(response)
+                console.log("----------------------")
+    
+                if ( response === "Be the first to comment.") {
+                    $(".articleComments").html(response)
+                } else {
+                    displayComments(response)   
+                    commentLogic()
+                }
+            })
         })
-    })
 
+    }
+    
+    
 })
+
+

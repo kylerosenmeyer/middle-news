@@ -10,20 +10,73 @@ main, nav {
 .jumbotron {
     text-align: center;
     margin-bottom: 0px;
+    padding-top: 0px;
+    padding-bottom: 30px;
+    background-color: white;
+}
+
+.jumboText {
+    font-family: 'Roboto Condensed', sans-serif;
 }
 
 .blueArticleWrapper {
-    border: 5px solid blue;
-    padding: 10px;
-    border-radius: 50px 0px 0px 50px;
-    margin-bottom: 10px;  
+    border: 5px solid #3773c1;
+    padding: 5px;
+    border-radius: 100px 0px 0px 0px;
+    margin-bottom: 10px;
+    margin-right: 5px;
+    overflow: hidden;
+    height: 450px; 
+    max-width: 550px;
+    float: right;
+    display: block;
 }
 
 .redArticleWrapper {
-    border: 5px solid red;
-    padding: 10px;
-    border-radius: 0px 50px 50px 0px;
+    border: 5px solid #df3026;
+    padding: 5px;
+    border-radius: 0px 100px 0px 0px;
+    margin-left: 5px;
     margin-bottom: 10px;
+    overflow: hidden;
+    height: 450px; 
+    max-width: 550px;
+    float: left;
+    display: block;
+}
+
+.leftHeader {
+    padding: 20px;
+    font-family: 'Arimo', sans-serif;
+    float: right;
+    border-right: 5px solid #3773c1;
+    margin-right: 5px;
+    display: block;
+}
+
+.rightHeader {
+    padding: 20px;
+    font-family: 'Arimo', sans-serif;
+    float: left;
+    border-left: 5px solid #df3026;
+    margin-left: 5px;
+    display: block;
+}
+
+.infoWrapper {
+    padding: 5px;
+    margin: 0px;
+}
+
+.navRow {
+    padding: 20px;
+    border-top: 5px solid #3773c1;
+    border-bottom: 5px solid #3773c1;
+    margin: 10px 0px;
+}
+
+nav.container-fluid {
+    padding: 0px;
 }
 
 .navSection {
@@ -38,13 +91,14 @@ main, nav {
     padding-left: 0px;
     padding-right: 0px;
     margin: 0px;
-    background-color: red;
+    border-radius: 40px;
+    background-color: #df3026;
     color: white;
     transition: background-color 0.5s;
 }
 
 .navBtn:hover {
-    background-color: blue;
+    background-color: #3773c1;
 }
 
 .navBtn:active, .navBtn:focus {
@@ -61,12 +115,194 @@ main, nav {
     width: 100%;
     height: auto;
     display: block;
-    border-radius: 40px 0px 0px 0px;
+    margin-bottom: 5px;
+    border-radius: 95px 0px 0px 0px;
+    opacity: 1;
+    transition: opacity 0.5s;
 }
 
 .redArticleImage {
     width: 100%;
     height: auto;
     display: block;
-    border-radius: 0px 40px 0px 0px;
+    margin-bottom: 5px;
+    border-radius: 0px 95px 0px 0px;
+    opacity: 1;
+    transition: opacity 0.5s;
 }
+
+.imageWrapper {
+    padding: 0px;
+    margin: 0px;
+    position: relative;
+}
+
+.action {
+    position: absolute;
+    opacity: 0;
+    font-size: 3em;
+    color: white;
+    background-color: transparent;
+    border: 5px solid #3773c1;
+    border-radius: 20px;
+    padding: 20px;
+    transition: background-color 0.5s, color 0.5s;
+}
+
+.articleAction {
+    top: 30%;
+    left: 20%;
+}
+
+.articleComment {
+    top: 30%;
+    left: 60%;
+}
+
+.imageWrapper:hover .blueArticleImage, .imageWrapper.active .blueArticleImage {
+    opacity: 0.5;
+}
+
+.imageWrapper:hover .redArticleImage, .imageWrapper.active .redArticleImage {
+    opacity: 0.5;
+}
+
+.imageWrapper:hover .action, .imageWrapper.active .action {
+    opacity: 1;
+}
+
+.action:hover, .action:active {
+    background-color: white;
+    color: #df3026;
+    outline: none;
+}
+
+.articleTitle {
+    font-weight: bolder;
+}
+
+.leftNews {
+    margin-right: 0px;
+    padding-right: 0px;
+}
+
+.rightNews {
+    margin-left: 0px;
+    padding-left: 0px;
+}
+
+.logoBtn {
+    height: 200px;
+    width: 100%;
+    background-color: #3773c1;
+    border: 0px;
+    margin: 0px 0px 10px 0px;
+    padding: 20px;
+    transition: background-color 1.5s;
+}
+
+.logoBtn:active, .logoBtn:hover {
+    outline: none;
+    background-color: white;
+}
+
+.logoBtn:hover .logo-left {
+    color: #3773c1;
+    border: 5px solid #3773c1;
+}
+
+.logoBtn:hover .logo-right {
+    color: #df3026;
+    border: 5px solid #df3026;
+}
+
+.logo-left {
+    display: inline-block;
+    padding: 20px 10px 20px 20px;
+    margin-right: 5px;
+    color: white;
+    font-size: 4em;
+    border: 5px solid white;
+    border-radius: 60px 0px 0px 60px;
+    transition: color 1s, border 1s;
+}
+
+.logo-right {
+    display: inline-block;
+    padding: 20px 20px 20px 10px;
+    margin-left: 5px;
+    color: white;
+    font-size: 4em;
+    border: 5px solid white;
+    border-radius: 0px 60px 60px 0px;
+    transition: color 1s, border 1s;
+}
+
+.articleComments {
+    margin-top: 15px;
+}
+
+.user-name {
+    border-top: 0px;
+    border-right: 0px;
+    border-left: 0px;
+    border-bottom: 5px solid #3773c1;
+    outline: 0px;
+    width: 95%;
+    padding: 2px;
+    margin-bottom: 10px;
+}
+
+.user-comment {
+    border: 5px solid #3773c1;
+    height: 100px;
+    outline: 0px;
+    width: 95%;
+    padding: 2px;
+    margin-bottom: 10px;
+}
+
+.modal-save {
+    color: black;
+    background-color: white;
+    border: 5px solid #3773c1;
+    transition: color 0.5s, background-color 0.5s;
+}
+
+.modal-save:hover, .modal-save:active {
+    outline: 0px;
+    color: white;
+    background-color: #3773c1;
+    border: 5px solid #3773c1;
+}
+
+.modal-close {
+    color: black;
+    background-color: white;
+    border: 5px solid #df3026;
+    transition: color 0.5s, background-color 0.5s;
+}
+
+.modal-close:hover, .modal-close:active {
+    outline: 0px;
+    color: white;
+    background-color: #df3026;
+    border: 5px solid #df3026;
+}
+
+.commentsSection {
+    padding: 5px;
+    margin: 0px;
+    overflow: scroll;
+    height: 200px;
+}
+
+.commentsHeader {
+    border-bottom: 5px solid #3773c1;
+}
+
+.commentRow {
+    margin-bottom: 10px;
+}
+
+

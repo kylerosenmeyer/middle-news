@@ -2,17 +2,32 @@
 
 
 <!-- Modal -->
-<div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+<div class="modal fade" id="commentModal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Comment On This Article/h5>
+                <h5 class="modal-title">Comment On This Article</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
             </div>
             <div class="modal-body">
-                <input type="text" class="modal-comment" placeholder="Start Typing">
+                <p class="modal-name">Name:</p>
+                <input type="text" class="user-name" placeholder="Name (required)">
+                <p class="modal-comment">Comment:</p>
+                <textarea type="text" class="user-comment" placeholder="Comment on this article."></textarea>
+                <div class="container commentsSection">
+                    <h5 class="commentsTitle">Comments Section</h5>
+                    <div class="row commentsHeader">
+                        <div class="col-3">
+                            <p>Name</p>
+                        </div>
+                        <div class="col-9">
+                            <p>Comment</p>
+                        </div>
+                    </div>
+                    <summary class="articleComments"></summary>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn modal-save">Save</button>
@@ -23,16 +38,16 @@
 </div>
 
 <div class="jumbotron jumbotron-fluid">
+    <button class="logoBtn"><h1 class="logo-left">MIDDLE</h1><h1 class="logo-right">NEWS</h1></button>
     <div class="container">
-        <h1 class="display-3 mainTitle">MIDDLE NEWS</h1>
-        <p class="lead">GET IN THE MIDDLE OF THE NEWS AND YOU GET IT.</p>
+        <p class="lead jumboText">GET IN THE MIDDLE OF THE NEWS AND YOU GET IT.</p>
         <hr class="my-2">
-        <p>COMPARE LEFT AND RIGHT LEANING NEWS ON A RANGE OF TOPICS.</p>
+        <p class="jumboText">COMPARE LEFT AND RIGHT LEANING NEWS ON A RANGE OF TOPICS.</p>
     </div>
 </div>
 
 <nav class="container-fluid">
-    <div class="row">
+    <div class="row navRow">
         <div class="col-sm-6 col-md-4 col-lg-2 navSection">
             <button class="navBtn politics" data-section="politicSection">POLITICS</button>
         </div>

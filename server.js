@@ -6,7 +6,8 @@ const
     PORT = 3000,
     app = express(),
     router = require("./routing/router.js"),
-    MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines"
+    MONGODB_URI = "mongodb://heroku_fjj4x4xd:5v75h99b6ct7mg4at65n18kvj4@ds125469.mlab.com:25469/heroku_fjj4x4xd"
+    // process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines"
 
 //*Middleware
 app.use( express.urlencoded( { extended: true } ) )

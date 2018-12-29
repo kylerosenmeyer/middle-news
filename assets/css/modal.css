@@ -63,6 +63,10 @@
     height: 200px;
 }
 
+.commentsTitle {
+    margin-left: 35%;
+}
+
 .commentsHeader {
     border-bottom: 5px solid #3773c1;
 }

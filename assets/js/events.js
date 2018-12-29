@@ -20,35 +20,40 @@ const
         }
     }
 
+//Check to see which page is loaded and display the corresponding section.
 displayNews()
 
 let section
 
 //!EVENTS
-
+//*Clicking the main logo loads the root page
 $(".logoBtn").click( function() {
     location.href = "/"
 })
 
+//*Clicking a news section will load that section's news.
 $(".navBtn").click( function() {
     section = $(this).attr("data-section")
-    console.log(`Get ${section}\n `)
+    // console.log(`Get ${section}\n `)
 
+    //!ROUTE: Get News
     let url = `/${section}`
     $.get(url).then((res, status) => {
-        console.log("request complete")
-        console.log(status)
-        console.log("----------------------")
+        // console.log("request complete")
+        // console.log(status)
+        // console.log("----------------------")
         location.href = url 
     })
 })
 
+//*Clicking the read button will load the full article in a new tab.
 $(".articleAction").click( function() {
 
     let url = $(this).attr("data-href")
     window.open(url, '_blank')
 })
 
+// Create functions for displaying comments and adding logic to the "delete comment" buttons. The run each time we want to refresh the comments.
 let displayComments = function(response) {
 
     $(".articleComments").html("")
@@ -93,21 +98,23 @@ let displayComments = function(response) {
 
                 let commentID = { "_id": $(this).attr("data-id") },
                 url = `/delete-comment/${$(this).attr("data-id")}`
-    
+                
+                //!ROUTE: Delete a comment.
                 $.ajax({
                     url: url,
                     method: "DELETE",
                     data: commentID
                 }).then(() => {
-                    console.log("comment deleted")
-                    console.log("go refresh comments")
-                    console.log("----------------------")
+                    // console.log("comment deleted")
+                    // console.log("go refresh comments")
+                    // console.log("----------------------")
                     let refreshURL = "/note/" + $(".modal-save").attr("data-id")
+
+                    //!ROUTE: Refresh comments after deleting one.
                     $.get(refreshURL).then((response) => {
-                        console.log("comment request complete")
-                        console.log(response)
-                        console.log("----------------------")
-                        
+                        // console.log("comment request complete")
+                        // console.log(response)
+                        // console.log("----------------------")
                         if ( response === "Be the first to comment.") {
                             $(".articleComments").html(response)
                         } else {
@@ -117,23 +124,23 @@ let displayComments = function(response) {
                     })
                 })
             })
-        }
-        
+        }  
     }
 
 
-
+//*Clicking the comment button opens the comment section modal.
 $(".articleComment").click( function() {
 
     $(".articleComments").html("")
 
     let id = $(this).attr("data-id"),
         url = `/note/${id}`
-    $.get(url).then((response) => {
-        console.log("comment request complete")
-        console.log(response)
-        console.log("----------------------")
 
+    //!ROUTE: Get the comments for this article.
+    $.get(url).then((response) => {
+        // console.log("comment request complete")
+        // console.log(response)
+        // console.log("----------------------")
         if ( response === "Be the first to comment.") {
             $(".articleComments").html(response)
         } else {
@@ -145,9 +152,9 @@ $(".articleComment").click( function() {
         $(".modal-save").attr("data-id", id)
         $("#commentModal").modal("toggle")
     })
-    
 })
 
+//*Clicking the save button in the comments section will add the comment to the comments section for everyone to see.
 $(".modal-save").click( function() {
 
     let id = $(this).attr("data-id"),
@@ -172,20 +179,22 @@ $(".modal-save").click( function() {
     
         $(".user-name").val("")
         $(".user-comment").val("")
-    
+        
+        //!ROUTE: Submit the comment.
         $.post(url, request).then((response) => {
     
-            console.log("comment post complete")
-            console.log(response)
-            console.log("----------------------")
+            // console.log("comment post complete")
+            // console.log(response)
+            // console.log("----------------------")
     
             $(".articleComments").html("")
-    
+            
+            //!ROUTE: Refresh the comments after submitting one.
             $.get(url).then((response) => {
     
-                console.log("comment return complete")
-                console.log(response)
-                console.log("----------------------")
+                // console.log("comment return complete")
+                // console.log(response)
+                // console.log("----------------------")
     
                 if ( response === "Be the first to comment.") {
                     $(".articleComments").html(response)
@@ -195,10 +204,7 @@ $(".modal-save").click( function() {
                 }
             })
         })
-
     }
-    
-    
 })
 
 

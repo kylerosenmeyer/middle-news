@@ -12,10 +12,11 @@ module.exports = function(app) {
     //!Section Update
     app.get("/:section", (req,res) => {
 
+        //*Define the functions that execute the news logic (logic.js) and render the pages. There is a function for each section because each section has it's own partial template.
         let sectionRequest = req.params.section,
             cbPolitics = function(data) {
-                console.log(`Render Test: ${data.leftArticle[0].title}`)
-                console.log(`Render Test: ${data.rightArticle[0].title}`)
+                // console.log(`Render Test: ${data.leftArticle[0].title}`)
+                // console.log(`Render Test: ${data.rightArticle[0].title}`)
                 res.render(
                     "index", 
                     {
@@ -26,8 +27,8 @@ module.exports = function(app) {
                 )
             },
             cbNational = function(data) {
-                console.log(`Render Test: ${data.leftArticle[0].title}`)
-                console.log(`Render Test: ${data.rightArticle[0].title}`)
+                // console.log(`Render Test: ${data.leftArticle[0].title}`)
+                // console.log(`Render Test: ${data.rightArticle[0].title}`)
                 res.render(
                     "index", 
                     {
@@ -38,8 +39,8 @@ module.exports = function(app) {
                 )
             },
             cbWorld = function(data) {
-                console.log(`Render Test: ${data.leftArticle[0].title}`)
-                console.log(`Render Test: ${data.rightArticle[0].title}`)
+                // console.log(`Render Test: ${data.leftArticle[0].title}`)
+                // console.log(`Render Test: ${data.rightArticle[0].title}`)
                 res.render(
                     "index", 
                     {
@@ -50,8 +51,8 @@ module.exports = function(app) {
                 )
             },
             cbBusiness = function(data) {
-                console.log(`Render Test: ${data.leftArticle[0].title}`)
-                console.log(`Render Test: ${data.rightArticle[0].title}`)
+                // console.log(`Render Test: ${data.leftArticle[0].title}`)
+                // console.log(`Render Test: ${data.rightArticle[0].title}`)
                 res.render(
                     "index", 
                     {
@@ -62,8 +63,8 @@ module.exports = function(app) {
                 )
             },
             cbEntertainment = function(data) {
-                console.log(`Render Test: ${data.leftArticle[0].title}`)
-                console.log(`Render Test: ${data.rightArticle[0].title}`)
+                // console.log(`Render Test: ${data.leftArticle[0].title}`)
+                // console.log(`Render Test: ${data.rightArticle[0].title}`)
                 res.render(
                     "index", 
                     {
@@ -74,8 +75,8 @@ module.exports = function(app) {
                 )
             },
             cbHealth = function(data) {
-                console.log(`Render Test: ${data.leftArticle[0].title}`)
-                console.log(`Render Test: ${data.rightArticle[0].title}`)
+                // console.log(`Render Test: ${data.leftArticle[0].title}`)
+                // console.log(`Render Test: ${data.rightArticle[0].title}`)
                 res.render(
                     "index", 
                     {
@@ -85,8 +86,8 @@ module.exports = function(app) {
                     }
                 )
             }
-        console.log(`Section Requested ${sectionRequest}`)
-
+        // console.log(`Section Requested ${sectionRequest}`)
+        //*Check which section was requested and call the corresponding function to finish the request.
         switch (sectionRequest) {
             case "politicSection": 
                 scrape.politics(cbPolitics)
@@ -110,48 +111,50 @@ module.exports = function(app) {
     })
 
     //!Note Request
+    //*Get comments for a single article
     app.get("/note/:id", (req, res) => {
 
         let articleID = req.params.id
-        console.log(`Notes for Article: ${articleID}`)
-
+        // console.log(`Notes for Article: ${articleID}`)
         note.articlenote
             .find({article_id:articleID})
             .then( notes => {
                 if ( notes.length > 0 ) { 
-                    console.log("notes found:")
-                    console.log(notes)
-                    console.log("--*--*--*--*--*--*--*--")
+                    // console.log("notes found:")
+                    // console.log(notes)
+                    // console.log("--*--*--*--*--*--*--*--")
                     res.send(notes)
                 } else { res.send("Be the first to comment.") }
             })
     })
 
     //!Note Post
+    //*Add a comment to the comment section
     app.post("/note/:id", (req,res) => {
 
         let noteId = req.params.id,
             request = req.body
 
-        console.log(`noteId: ${noteId}`)
-        console.log(`requestname: ${request.name}`)
-        console.log(`requestcomment: ${request.comment}`)
-        console.log(`article_id: ${request.article_id}`)
+        // console.log(`noteId: ${noteId}`)
+        // console.log(`requestname: ${request.name}`)
+        // console.log(`requestcomment: ${request.comment}`)
+        // console.log(`article_id: ${request.article_id}`)
 
         if (request) {
 
             note.articlenote
                 .create(request)
                 .then( note => {
-                    console.log("Note Created:")
-                    console.log(note)
-                    console.log("--*--*--*--*--*--*--*--")
+                    // console.log("Note Created:")
+                    // console.log(note)
+                    // console.log("--*--*--*--*--*--*--*--")
                     res.send("comment recorded")})
                 .catch( err => console.log(err) )
         }
     })
 
     //!Note Delete
+    //*Delete a comment from the comment section.
     app.delete("/delete-comment/:id", (req, res) => {
 
         let noteId = req.params.id,
@@ -160,9 +163,9 @@ module.exports = function(app) {
         note.articlenote
             .deleteOne({"_id":request})
             .then( note => {
-                console.log("Note Deleted:")
-                console.log(note)
-                console.log("--*--*--*--*--*--*--*--")
+                // console.log("Note Deleted:")
+                // console.log(note)
+                // console.log("--*--*--*--*--*--*--*--")
                 res.end()})
             .catch( err => console.log(err) )
             

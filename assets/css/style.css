@@ -74,7 +74,7 @@ nav.container-fluid {
     border: 0px;
     margin: 0px 0px 10px 0px;
     padding: 20px;
-    transition: background-color 1.5s;
+    transition: background-color 0.5s;
 }
 
 .logoBtn:active, .logoBtn:hover {
@@ -85,33 +85,47 @@ nav.container-fluid {
 .logoBtn:hover .logo-left {
     color: #3773c1;
     border: 5px solid #3773c1;
+    transform: rotate(-5deg);
+    transform-origin: 100% 100%;
 }
 
 .logoBtn:hover .logo-right {
     color: #df3026;
     border: 5px solid #df3026;
+    transform: rotate(5deg);
+    transform-origin: 0% 100%;
 }
 
 .logo-left {
     display: inline-block;
     padding: 20px 10px 20px 20px;
-    margin-right: 5px;
+    margin-right: 0px;
     color: white;
     font-size: 4em;
     border: 5px solid white;
     border-radius: 60px 0px 0px 60px;
-    transition: color 1s, border 1s;
+    transform-origin: 100% 100%;
+    transition: color 1s, border 1s, transform 0.5s;
 }
 
 .logo-right {
     display: inline-block;
     padding: 20px 20px 20px 10px;
-    margin-left: 5px;
+    margin-left: 0px;
     color: white;
     font-size: 4em;
     border: 5px solid white;
     border-radius: 0px 60px 60px 0px;
-    transition: color 1s, border 1s;
+    transform-origin: 0% 100%;
+    transition: color 1s, border 1s, transform 0.5s;
+}
+
+@media only screen and (max-width: 575px) {
+
+    .logo-left, .logo-right {
+        font-size: 2.5em;
+    }
+
 }
 
 

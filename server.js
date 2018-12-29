@@ -3,7 +3,7 @@ const
     express = require("express"),
     handlebars = require("express-handlebars"),
     mongoose = require("mongoose"),
-    PORT = 3000,
+    PORT = process.env.PORT || 3000,
     app = express(),
     router = require("./routing/router.js"),
     MONGODB_URI = "mongodb://heroku_fjj4x4xd:5v75h99b6ct7mg4at65n18kvj4@ds125469.mlab.com:25469/heroku_fjj4x4xd"

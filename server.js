@@ -6,7 +6,7 @@ const
     PORT = 3000,
     app = express(),
     router = require("./routing/router.js"),
-    MONGODB_URI = process.env.MONGODB_URI || ("mongodb://localhost/middleNews")
+    MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines"
 
 //*Middleware
 app.use( express.urlencoded( { extended: true } ) )

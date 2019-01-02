@@ -207,4 +207,34 @@ $(".modal-save").click( function() {
     }
 })
 
+$(".leftHeader").click( function() {
+
+    let arrow = $(this).children(".fa-arrow-right")
+
+    if ( $(arrow).attr("data-rotate") === "0" ) {
+
+        TweenMax.to(".fa-arrow-right", 0.5, {rotation: 90} )
+        $(".fa-arrow-right").attr("data-rotate", "90")
+    } else {
+
+        TweenMax.to(".fa-arrow-right", 0.5, {rotation: 0} )
+        $(".fa-arrow-right").attr("data-rotate", "0")
+    }
+})
+
+$(".rightHeader").click( function() {
+
+    let arrow = $(this).children(".fa-arrow-left")
+
+    if ( $(arrow).attr("data-rotate") === "0" ) {
+
+        TweenMax.to(".fa-arrow-left", 0.5, {rotation: -90} )
+        $(".fa-arrow-left").attr("data-rotate", "-90")
+    } else {
+
+        TweenMax.to(".fa-arrow-left", 0.5, {rotation: 0} )
+        $(".fa-arrow-left").attr("data-rotate", "0")
+    }
+})
+
 

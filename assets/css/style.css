@@ -2,6 +2,10 @@ html, body {
     font-family: 'Roboto', sans-serif;
 }
 
+*:focus {
+    outline: 1px dashed lightgray;
+}
+
 main, nav {
     text-align: center;
 }
@@ -126,6 +130,13 @@ nav.container-fluid {
         font-size: 2.5em;
     }
 
+}
+
+.coverImage {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    margin: 0px;
 }
 
 

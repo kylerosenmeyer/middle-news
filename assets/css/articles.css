@@ -24,6 +24,10 @@
     display: block;
 }
 
+details summary::-webkit-details-marker {
+    display:none;
+}
+
 .leftHeader {
     padding: 20px;
     font-family: 'Arimo', sans-serif;
@@ -32,6 +36,15 @@
     margin-right: 5px;
     display: block;
 }
+
+.fa-arrow-right {
+    color: #3773c1;
+}
+
+.fa-arrow-left {
+    color: #df3026;
+}
+
 
 .rightHeader {
     padding: 20px;

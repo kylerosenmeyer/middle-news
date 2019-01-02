@@ -1,7 +1,8 @@
 <div class="container-fluid entertainmentSection">
     <div class="row">
         <div class="col-sm-6 leftNews">
-            <h2 class="leftHeader">NPR News</h2>
+            <details class="leftArcticles">
+                <summary><h2 class="leftHeader"><i class="fas fa-arrow-right" data-rotate="0"></i> NPR News</h2></summary>
                 {{#each leftArticle}}
                     <div class="blueArticleWrapper">
                         <div class="imageWrapper">
@@ -15,22 +16,25 @@
                         </div>
                     </div>
                 {{/each}}
+            </details>
         </div>
         <div class="col-sm-6 rightNews">
-            <h2 class="rightHeader">FOX News</h2>
-            {{#each rightArticle}}
-                <div class="redArticleWrapper">
-                    <div class="imageWrapper">
-                        <img src="{{image}}" class="redArticleImage">
-                        <button class="action articleAction" data-href="{{link}}"><i class="fas fa-book-open"></i></button>
-                        <button class="action articleComment" data-id="{{_id}}"><i class="far fa-comment"></i></button>
+            <details class="rightArcticles">
+                <summary><h2 class="rightHeader">FOX News <i class="fas fa-arrow-left" data-rotate="0"></i></h2></summary>
+                {{#each rightArticle}}
+                    <div class="redArticleWrapper">
+                        <div class="imageWrapper">
+                            <img src="{{image}}" class="redArticleImage">
+                            <button class="action articleAction" data-href="{{link}}"><i class="fas fa-book-open"></i></button>
+                            <button class="action articleComment" data-id="{{_id}}"><i class="far fa-comment"></i></button>
+                        </div>
+                        <div class="infoWrapper">
+                            <h5 class="articleTitle">{{title}}</h5>
+                            <p class="articleDescription">{{description}}</p>
+                        </div>
                     </div>
-                    <div class="infoWrapper">
-                        <h5 class="articleTitle">{{title}}</h5>
-                        <p class="articleDescription">{{description}}</p>
-                    </div>
-                </div>
-            {{/each}}
+                {{/each}}
+            </details>
         </div>
     </div>
 </div>

@@ -51,8 +51,8 @@ module.exports = function(app) {
                 )
             },
             cbBusiness = function(data) {
-                // console.log(`Render Test: ${data.leftArticle[0].title}`)
-                // console.log(`Render Test: ${data.rightArticle[0].title}`)
+                console.log(`Render Test: ${data.leftArticle[0].title}`)
+                console.log(`Render Test: ${data.rightArticle[0].title}`)
                 res.render(
                     "index", 
                     {

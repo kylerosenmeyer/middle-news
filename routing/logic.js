@@ -592,10 +592,10 @@ const
                             redResult.image = $(this).children(".m").children("a").children("img").attr("src")
                             redResult.title = $(this).children(".info").children("h3").children("a").text().trim()
 
-                            let initialLink = $(this).children(".info").children(".info-header").children(".title").children("a").attr("href")
+                            let initialLink = $(this).children(".m").children("a").attr("href")
                             if ( (initialLink) && ( initialLink.includes(":") ) ) {
-                                redResult.link = $(this).children(".info").children(".info-header").children(".title").children("a").attr("href")
-                            } else redResult.link = "https://www.foxbusiness.com" + $(this).children(".info").children(".info-header").children(".title").children("a").attr("href")
+                                redResult.link =$(this).children(".m").children("a").attr("href")
+                            } else redResult.link = "https://www.foxbusiness.com" + $(this).children(".m").children("a").attr("href")
 
                             redResult.date = moment().format("YYYY-MM-DD")
                             // console.log(redResult.title)
@@ -633,11 +633,11 @@ const
                     //*Retrieve the top 20 articles (by scrape order) from the last two days and send back to the client.
                     let startDate = moment().subtract(2, "days").format("YYYY-MM-DD")
                     article.redbusinessarticles
-                           .find({ date: {$gte: startDate}})
-                           .sort({scrapeOrder:1})
+                           .find({date: {$gte: startDate}})
+                           .sort({scrapeOrder: 1})
                            .limit(20)
                            .then(function(rightArticles) {
-
+                            
                         allArticles.rightArticle = rightArticles
                         // console.log("* * * * * * * * * * * * * * * *")
                         // console.log(`All Articles: ${allArticles}`)

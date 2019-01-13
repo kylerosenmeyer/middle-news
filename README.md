@@ -1,7 +1,7 @@
 # middle-news
 Middle News
 Get in the middle of the news, and you get it.
-Coding Bootcamp HW17 by Kyle Rosenmeyer
+Coding Bootcamp HW18 by Kyle Rosenmeyer
 
 **Middle News** is a full stack news app built by Kyle Rosenmeyer. The app allows the user to compare realtime news between left and right leaning outlets on a range of topics, and comment on articles.
 
@@ -15,6 +15,6 @@ More information:
 
 See [Under the Hood Here.](https://github.com/kylerosenmeyer/middle-news)
 
-See [the Deployed App on Heroku Here.](link)
+See [the Deployed App on Heroku Here.](https://middle-news.herokuapp.com/)
 
 See **Kyle Rosenmeyer's** [website and entire portfolio here.](https://kyle-rosenmeyer.herokuapp.com/)
